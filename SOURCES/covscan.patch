@@ -1,0 +1,67 @@
+diff -up libindicator-12.10.1/libindicator/indicator-object.c.covscan libindicator-12.10.1/libindicator/indicator-object.c
+--- libindicator-12.10.1/libindicator/indicator-object.c.covscan	2012-09-19 17:38:04.953839560 +0200
++++ libindicator-12.10.1/libindicator/indicator-object.c	2018-10-10 07:17:21.864398587 +0200
+@@ -539,6 +539,7 @@ get_all_entries (IndicatorObject * io)
+ 
+ 	g_return_val_if_fail(INDICATOR_IS_OBJECT(io), NULL);
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_val_if_fail(INDICATOR_IS_OBJECT_CLASS(class), NULL);
+ 
+ 	if (class->get_entries == NULL)
+ 		g_error("No get_entries function on object.  It must have been deleted?!?!");
+@@ -635,6 +636,7 @@ indicator_object_get_location (Indicator
+ {
+ 	g_return_val_if_fail(INDICATOR_IS_OBJECT(io), 0);
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_val_if_fail(INDICATOR_IS_OBJECT_CLASS(class), 0);
+ 
+ 	if (class->get_location) {
+ 		return class->get_location(io, entry);
+@@ -659,6 +661,7 @@ indicator_object_get_show_now (Indicator
+ {
+ 	g_return_val_if_fail(INDICATOR_IS_OBJECT(io), 0);
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_val_if_fail(INDICATOR_IS_OBJECT_CLASS(class), 0);
+ 
+ 	if (class->get_show_now) {
+ 		return class->get_show_now(io, entry);
+@@ -688,6 +691,7 @@ indicator_object_entry_activate_window (
+ {
+ 	g_return_if_fail(INDICATOR_IS_OBJECT(io));
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_if_fail(INDICATOR_IS_OBJECT_CLASS(class));
+ 
+ 	if (class->entry_activate_window != NULL) {
+ 		return class->entry_activate_window(io, entry, windowid, timestamp);
+@@ -714,6 +718,7 @@ indicator_object_entry_activate (Indicat
+ {
+ 	g_return_if_fail(INDICATOR_IS_OBJECT(io));
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_if_fail(INDICATOR_IS_OBJECT_CLASS(class));
+ 
+ 	if (class->entry_activate != NULL) {
+ 		return class->entry_activate(io, entry, timestamp);
+@@ -736,6 +741,7 @@ indicator_object_entry_close (IndicatorO
+ {
+ 	g_return_if_fail(INDICATOR_IS_OBJECT(io));
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_if_fail(INDICATOR_IS_OBJECT_CLASS(class));
+ 
+ 	if (class->entry_close != NULL) {
+ 		return class->entry_close(io, entry, timestamp);
+@@ -749,6 +755,7 @@ indicator_object_entry_being_removed (In
+ {
+ 	g_return_if_fail(INDICATOR_IS_OBJECT(io));
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_if_fail(INDICATOR_IS_OBJECT_CLASS(class));
+ 
+ 	entry_get_private (io, entry)->visibility = ENTRY_INVISIBLE;
+ 
+@@ -766,6 +773,7 @@ indicator_object_entry_was_added (Indica
+ {
+ 	g_return_if_fail(INDICATOR_IS_OBJECT(io));
+ 	IndicatorObjectClass * class = INDICATOR_OBJECT_GET_CLASS(io);
++	g_return_if_fail(INDICATOR_IS_OBJECT_CLASS(class));
+ 
+ 	entry_get_private (io, entry)->visibility = ENTRY_VISIBLE;
+ 
